@@ -1,12 +1,18 @@
 import io
-
-import torchvision.transforms as transforms
-from PIL import Image
-from torchvision import models
 import json
 
+from torchvision import models
+import torchvision.transforms as transforms
+from PIL import Image
+from flask import Flask, jsonify, request
+import requests
+
+
+app = Flask(__name__)
+imagenet_class_index = json.load(open('../_static/imagenet_class_index.json'))
 model = models.densenet121(pretrained=True)
 model.eval()
+
 
 def transform_image(image_bytes):
     my_transforms = transforms.Compose([transforms.Resize(255),
@@ -18,7 +24,6 @@ def transform_image(image_bytes):
     image = Image.open(io.BytesIO(image_bytes))
     return my_transforms(image).unsqueeze(0)
 
-imagenet_class_index = json.load(open('../_static/imagenet_class_index.json'))
 
 def get_prediction(image_bytes):
     tensor = transform_image(image_bytes=image_bytes)
@@ -27,6 +32,18 @@ def get_prediction(image_bytes):
     predicted_idx = str(y_hat.item())
     return imagenet_class_index[predicted_idx]
 
-with open("../_static/img/fishy.jpg", 'rb') as f:
-    image_bytes = f.read()
-    print(get_prediction(image_bytes=image_bytes))
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    if request.method == 'POST':
+        file = request.files['file']
+        img_bytes = file.read()
+        class_id, class_name = get_prediction(image_bytes=img_bytes)
+        return jsonify({'class_id': class_id, 'class_name': class_name})
+
+# resp = requests.post("http://localhost:5000/predict",
+#                      files={"file": open('../_static/img/fishy.jpg','rb')})
+# print(resp.json() )
+
+if __name__ == '__main__':
+    app.run()
