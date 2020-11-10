@@ -28,6 +28,8 @@ To download and image directly  :
 
 Download Link : 
 
+(If the access is unavailable for the first link, please use the second link)
+
 ```
 docker load < test_image.img
 ```
