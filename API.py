@@ -6,13 +6,13 @@ import torchvision.transforms as transforms
 from PIL import Image
 from flask import Flask, jsonify, request
 
-
+#initialization of app and pretrained model
 app = Flask(__name__)
 imagenet_class_index = json.load(open('imagenet_class_index.json'))
 model = models.densenet121(pretrained=True)
 model.eval()
 
-
+# Converting into a 3D matrix and normalizing pixels.
 def transform_image(image_bytes):
     my_transforms = transforms.Compose([transforms.Resize(255),
                                         transforms.CenterCrop(224),
@@ -23,7 +23,7 @@ def transform_image(image_bytes):
     image = Image.open(io.BytesIO(image_bytes))
     return my_transforms(image).unsqueeze(0)
 
-
+# get image label.
 def get_prediction(image_bytes):
     tensor = transform_image(image_bytes=image_bytes)
     outputs = model.forward(tensor)
@@ -31,7 +31,7 @@ def get_prediction(image_bytes):
     predicted_idx = str(y_hat.item())
     return imagenet_class_index[predicted_idx]
 
-
+# Function called with a HTTP 'POST' request.
 @app.route('/upload', methods=['POST'])
 def upload():
     if request.method == 'POST':
