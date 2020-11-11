@@ -26,10 +26,7 @@ curl -F "file=@<file name.jpg>" http://127.0.0.1:5000/upload
 
 To download and image directly  :
 
-Download Link : 
-
-(If the access is unavailable for the first link, please use the second link)
-
+Download Link : https://drive.google.com/file/d/1XrGhPwX044Ir8v2IpIu33eRFO-0uWm5i/view?usp=sharing
 ```
 docker load < test_image.img
 ```
