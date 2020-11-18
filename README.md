@@ -40,7 +40,7 @@ docker run -p 5000:5000 test:0
 ```
 To ping the server,' and 'curl' commands from above can be used.
 
-To stop the container from running and delete all the images from your system, use the following commands to reclaim the space:
+To stop the running container and delete all the images from your system, use the following command:
 
 ```
 docker container ls
@@ -48,7 +48,7 @@ docker container ls
 
 This command will list down all the containers with their ids, names, etc
 
-To stop the running container just copy the ID from above and run:
+To stop the running the container just copy the ID from above and run:
 
 ```
 docker stop <container id>
