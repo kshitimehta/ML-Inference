@@ -8,7 +8,7 @@ To build the Docker Image please run the following command:
 (The image will be created from the Dockerfile mentioned)
 
 ```
-docker build -t <Docker Image Name>:<Version>
+docker build -t <Docker Image Name>:<Version> .
 ```
 
 To create a Docker Container, run the following:
