@@ -30,4 +30,7 @@ Download Link : https://drive.google.com/file/d/1XrGhPwX044Ir8v2IpIu33eRFO-0uWm5
 ```
 docker load < test_image.img
 ```
-To initialize the container at localhost and pinging the server, the 'docker run' and 'curl' commands from above can be used.
+```
+docker run -p 5000:5000 test:0
+```
+To ping the server,' and 'curl' commands from above can be used.
