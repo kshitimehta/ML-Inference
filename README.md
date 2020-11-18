@@ -21,7 +21,12 @@ The command above will create a Docker Container at localhost port 5000.
 To send an image to the flask application in the container, use the following command (preferably from a different CLI window):
 
 ```
-curl -F "file=@<file name.jpg>" http://127.0.0.1:5000/upload
+curl -F "file=@<image path name/image name.jpg>" http://127.0.0.1:5000/upload
+```
+As an example you could try:
+
+```
+curl -F "file=@images/fishy.jpg" http://127.0.0.1:5000/upload
 ```
 
 To download and use image directly (This image has been made using Linux Containers)  :
